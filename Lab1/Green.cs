@@ -101,11 +101,18 @@ public bool Task1(double d)
 
             // code here
             // Она встает в 7, ей надо ложиться в 00, либо в 10, считая что сейчас ложится в 4, минимум разницы - 4 часа = 240 мин., или 6 часов = 360 мин.
-            if (X <= 7) return false;
-            if (X % 2 == 0) return false;
-            if (Y < 240 || Y > 360) return false;
-            return true;
+            int currentwakeup = 14 * 60;
+            int currentgosleep = 4 * 60;
+            currentwakeup -= X * 60;
+            currentwakeup = Math.Clamp(currentwakeup, 7 * 60, 14 * 60);
+            currentgosleep -= ((X / 2) + 1) * Y;
+            int sleeptime = currentwakeup - currentgosleep;
+            System.Console.WriteLine(sleeptime);
+            if (((sleeptime >= 7 * 60) && (sleeptime <= 9 * 60) && currentwakeup == 7 * 60)) answer = true;
+
             // end
+            
+            return answer;
         }
     }
 }
